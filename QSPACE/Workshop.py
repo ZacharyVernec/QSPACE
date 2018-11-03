@@ -77,7 +77,9 @@ def removeAnEdge(vertex, adjmat):
 def executable(n, expected_Average):
     adjMatrix = getValMat(n)
     valArr = getValArr(adjmat)
+    adjMatricesOverTime = [adjMatrix]
     while checkIfNotDone == True:
         vertexToRemove = pickVertex(valArr)
         adjMatrix = removeAnEdge(vertexToRemove)
-    return adjMatrix
+        adjMatricesOverTime.append(adjMatrix)
+    return adjMatricesOverTime
