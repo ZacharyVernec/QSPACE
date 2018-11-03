@@ -5,7 +5,7 @@ Created on Sat Nov  3 12:41:10 2018
 @author: eloisechakour
 """
 import numpy as np
-numpy.random.seed(0)
+#numpy.random.seed(0)
 
 
 #Initial Useful variables
@@ -21,8 +21,10 @@ def initValMat(n):
     
 def getValArr(adjmat):
     valArr = np.empty((n,))
-    for i in range(n):
-        valArr[i] = np.sum(adjmat[i], dtype=int)
+    for i in range(n): 
+        valArr[i] = n-1
+    #for i in range(n):
+        #valArr[i] = np.sum(adjmat[i], dtype=int)
     return valArr
 
 
@@ -30,13 +32,13 @@ def getValArr(adjmat):
     
     
 #Checks if there are any edges left to remove
-def checkIfNotDone(adjmat):
-    valArr = getValArr(adjmat)
-    avgVal = np.sum(valArr)/n
-    if avgVal > expected_average:
-        return True
-    else:
-        return False
+def checkIfNotDone(adjmat, valArr):
+    cont = 0
+    for i in range(len(valArr)):
+        if valArr[i] > expected_average:
+            cont = 1
+    
+    return cont
     
     
 #Makes the picking of the vertex somewhat random
@@ -60,26 +62,41 @@ def pickVertex(valArr):
 
 #Pick an edge from the selected vertex
 #RETURNS a new matrix with the edge removed
-def removeAnEdge(vertex, adjmat):
-    valArr = getValArr(adjmat)
-    foundLine = False
+def removeAnEdge(vertex, adjmat, valArr):
+    stop = 0
     i = 0
-    while not foundline:
-        if valArr[i] > expected_average:
-            adjmat[vertex, j] = 0
-            adjmat[j, vertex] = 0
-            foundline = True
-        else:
-            i+=1
+    
+    while stop == 0:
+        #print(vertex)
+        if adjmat[vertex, i] == 1:
+            
+            if valArr[i] > expected_average:
+                adjmat[vertex, i] = 0
+                adjmat[i, vertex] = 0
+                valArr[vertex] -=1
+                valArr[i] -=1
+                stop = 1
+                print("In the removeAnEdge Loop Case 1")
+                break
+            else:
+                print("In the removeAnEdge Loop Case 1")
+                i+=1
     return adjmat
     
 
 def executable(n, expected_Average):
-    adjMatrix = getValMat(n)
-    valArr = getValArr(adjmat)
+    adjMatrix = initValMat(n)
+    valArr = getValArr(adjMatrix)
     adjMatricesOverTime = [adjMatrix]
-    while checkIfNotDone == True:
+    done = 1
+    while done == 1:
+        done=0
         vertexToRemove = pickVertex(valArr)
-        adjMatrix = removeAnEdge(vertexToRemove)
-        adjMatricesOverTime.append(adjMatrix)
-    return adjMatricesOverTime
+        adjMatrix2 = removeAnEdge(vertexToRemove, adjMatrix, valArr)
+        done = checkIfNotDone(adjMatrix2, valArr)
+        adjMatricesOverTime.append(adjMatrix2)
+        print("Continue Variable = " + str(done))
+    return adjMatricesOverTime, print("Done!")
+
+
+finalMatrix = executable(n, expected_average)
