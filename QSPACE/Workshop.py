@@ -108,3 +108,25 @@ def executable(n, expected_Average):
 
 
 finalMatrix = executable(n, expected_average)
+
+def toGEXF(adjMatricesOverTime):
+    with open('startGEXF.txt', 'r') as template:
+        startstr = template.read()
+    nowstr = str(int(time.time()))
+    
+    endoftheworld = len(adjMatricesOverTime)
+    with open(nowstr, 'w') as file:
+        file.write(startstr)
+        file.write('    <nodes>')
+        for i in range(n):
+            file.write('      <node id="'+str(i)+'" label="Node '+str(i)+'" start="0" endopen="'+str(endoftheworld)+'" />')
+        file.write('    </nodes>')
+        file.write('    <edges>')
+        edgeEndTimes = sum(adjMatricesOverTime)
+        for i in range(n):
+            for j in range(n):
+                if j >= i: #check if in upper triangle
+                    file.write('<edge source="'+str(i)+'" target="'+str(j)+'" start="0" endopen="'+str(edgeEndTimes[i, j])+'"/>')
+        file.write('    </edges>')
+        file.write('  </graph>')
+        file.write('</gexf>')

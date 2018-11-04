@@ -4,4 +4,4 @@
        xsi:schemaLocation="http://www.gexf.net/1.1draft
                              http://www.gexf.net/1.1draft/gexf.xsd"
       version="1.1">
-  <graph mode="dynamic" defaultedgetype="directed">
+  <graph mode="dynamic" defaultedgetype="undirected">
