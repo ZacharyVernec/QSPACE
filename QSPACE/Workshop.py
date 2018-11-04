@@ -4,6 +4,7 @@
 Created on Sat Nov  3 12:41:10 2018
 @author: eloisechakour
 """
+import time
 import numpy as np
 np.random.seed(0)
 
