@@ -5,7 +5,7 @@ Created on Sat Nov  3 12:41:10 2018
 @author: eloisechakour
 """
 import numpy as np
-#numpy.random.seed(0)
+np.random.seed(0)
 
 
 #Initial Useful variables
@@ -59,43 +59,51 @@ def pickVertex(valArr):
     vertex = pickRandVertex(eligible_vertices)
     return vertex
 
-
+'''
 #Pick an edge from the selected vertex
 #RETURNS a new matrix with the edge removed
 def removeAnEdge(vertex, adjmat, valArr):
     stop = 0
     i = 0
     
-    while stop == 0:
-        #print(vertex)
-        if adjmat[vertex, i] == 1:
-            
-            if valArr[i] > expected_average:
-                adjmat[vertex, i] = 0
-                adjmat[i, vertex] = 0
-                valArr[vertex] -=1
-                valArr[i] -=1
-                stop = 1
-                print("In the removeAnEdge Loop Case 1")
-                break
-            else:
-                print("In the removeAnEdge Loop Case 1")
-                i+=1
+    while adjmat[vertex, i] == 1 and stop == 0:
+        #print(vertex)   
+        print("still in loop here...")        
+        if valArr[i] > expected_average:
+            adjmat[vertex, i] = 0
+            adjmat[i, vertex] = 0
+            valArr[vertex] -=1
+            valArr[i] -=1
+            stop = 1
+        else:
+            print("in else case")
+            i+=1
     return adjmat
-    
+
+''' 
+def removeAnEdge(vertex, adjmat, valArr):
+    row = adjmat[vertex]
+    for i in range(0, len(row)-1):
+        if row[i] == 1 and valArr[i] > expected_average:
+            adjmat[vertex, i] = 0
+            adjmat[i, vertex] = 0
+            valArr[vertex] -=1
+            valArr[i] -=1
+            return adjmat
+        
 
 def executable(n, expected_Average):
     adjMatrix = initValMat(n)
     valArr = getValArr(adjMatrix)
     adjMatricesOverTime = [adjMatrix]
-    done = 1
-    while done == 1:
-        done=0
+    running = 1
+    while running:
         vertexToRemove = pickVertex(valArr)
         adjMatrix2 = removeAnEdge(vertexToRemove, adjMatrix, valArr)
-        done = checkIfNotDone(adjMatrix2, valArr)
         adjMatricesOverTime.append(adjMatrix2)
-        print("Continue Variable = " + str(done))
+        running = checkIfNotDone(adjMatrix2, valArr)
+        #print("Continue Variable = " + str(running))
+        print(valArr)
     return adjMatricesOverTime, print("Done!")
 
 
