@@ -107,7 +107,7 @@ def executable(n, expected_Average):
     return adjMatricesOverTime, print("Done!")
 
 
-finalMatrix = executable(n, expected_average)
+matrices = executable(n, expected_average)
 
 def toGEXF(adjMatricesOverTime):
     with open('startGEXF.txt', 'r') as template:
@@ -130,3 +130,4 @@ def toGEXF(adjMatricesOverTime):
         file.write('    </edges>')
         file.write('  </graph>')
         file.write('</gexf>')
+toGEXF(matrices)
