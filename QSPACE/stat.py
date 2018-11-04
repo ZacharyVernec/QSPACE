@@ -13,7 +13,9 @@ Created on Sat Nov  3 20:27:07 2018
 n=10
 
 #Getting a test adjacency matrix - ignore this it's just to test stuff
-#adjMatrix = [[0, 1, 0, 1, 1, 1, 0, 1, 0, 1],[1, 0, 1, 0, 1, 1, 1, 1, 0, 0],[0, 1, 0, 0, 1, 1, 1, 1, 0, 1],[1, 0, 0, 0, 1, 1, 0, 1, 1, 1],[1, 1, 1, 1, 0, 0, 0, 0, 1, 1],[1, 1, 1, 1, 0, 0, 1, 0, 1, 0],[0, 1, 1, 0, 0 ,1 ,0 ,1, 1, 1],[1, 1, 1, 1, 0, 0, 1, 0, 1, 0],[0, 0, 0, 1, 1, 1, 1, 1, 0, 1],[1, 0, 1, 1, 1, 0, 1, 0, 1, 0]]
+adjMatrix = [[0, 1, 0, 1, 1, 1, 0, 1, 0, 1],[1, 0, 1, 0, 1, 1, 1, 1, 0, 0],[0, 1, 0, 0, 1, 1, 1, 1, 0, 1],[1, 0, 0, 0, 1, 1, 0, 1, 1, 1],[1, 1, 1, 1, 0, 0, 0, 0, 1, 1],[1, 1, 1, 1, 0, 0, 1, 0, 1, 0],[0, 1, 1, 0, 0 ,1 ,0 ,1, 1, 1],[1, 1, 1, 1, 0, 0, 1, 0, 1, 0],[0, 0, 0, 1, 1, 1, 1, 1, 0, 1],[1, 0, 1, 1, 1, 0, 1, 0, 1, 0]]
+
+
 
 
 
@@ -117,16 +119,16 @@ def getOldDist(adjmat, latmat): #DON'T COPY PASTE THIS
 
 
 #n tot vertices, adjMatrix is unperturbed and pertubed is perturbed 
-def executableStats(n, adjMatrix, perturbed):
+def executableStats(n, adjMatrix):#, perturbed):
     valencies = valencyArr(n, adjMatrix)
     E = energy(valencies, n)
     alpha = avgVal(valencies, adjMatrix)
-    d1, d2 = getOldDist(perturbed, adjMatrix)
-    avgDistChange = changeInDist(d1, d2, n)
-    return E, alpha, avgDistChange
+    #d1, d2 = getOldDist(perturbed, adjMatrix)
+    #avgDistChange = changeInDist(d1, d2, n)
+    return E, alpha#, avgDistChange
 
 
-
+E, a = executableStats(n, adjMatrix)
 
 
 
