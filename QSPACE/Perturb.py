@@ -29,31 +29,19 @@ def getOldDist(adjmat, latmat): #DON'T COPY PASTE THIS
 				#we explore top triangle, so i < j
 				#vertex 1 is #i, 2 is #j
 				#lattice should be a square lattice (before perturbation
-				row_len = 
-	return horiz, vert
-
-latMatrix = [[0,1,0,1,1,0,0,0,0],
-			[1,0,1,0,1,1,0,0,0],
-			[0,1,0,0,0,1,0,0,0],
-			[1,0,0,0,1,0,1,0,0],
-			[1,1,0,1,0,1,1,1,0],
-			[0,1,1,0,1,0,0,1,1],
-			[0,0,0,1,1,0,0,1,0],
-			[0,0,0,0,1,1,1,0,1],
-			[0,0,0,0,0,1,0,1,0]]
-
-perMatrix = [[0,0,1,1,1,0,0,0,0],
-			[0,0,1,0,1,1,0,0,0],
-			[1,1,0,0,0,1,0,0,0],
-			[1,0,0,0,1,0,1,0,0],
-			[1,1,0,1,0,1,1,1,0],
-			[0,1,1,0,1,0,0,1,1],
-			[0,0,0,1,1,0,0,1,0],
-			[0,0,0,0,1,1,1,0,1],
-			[0,0,0,0,0,1,0,1,0]]
+				row_len = int(n**(1/2)) #in vertices
+				col1 = i%row_len
+				row1 = (i - col1)/row_len
+				col2 = j%row_len
+				row2 = (j - col2)/row_len
+				
+				col = abs(col2 - col1)
+				row = abs(row2 - row1)
+				if not col == 0 and not row == 0:
+					row -= 1
+	return int(col), int(row)
 
 d1, d2 = getOldDist(perMatrix, latMatrix)
 print(d1, d2)
-
 
 
