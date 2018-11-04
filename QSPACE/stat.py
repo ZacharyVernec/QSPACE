@@ -51,9 +51,14 @@ def avgVal(valency, adjMatrix):
 
 
 #Change in distance 
+#side1 and side2 are the original path sides as discussed. n is the number of vertices. 
 
-
-
+def changeInDist(side1, side2, n):
+    dist = (side1**2 + side2**2 + side1*side2)**(0.5)
+    diff = side1+side2 - dist
+    tot = diff+1
+    deltaDist = tot/n
+    return deltaDist
 
 
 
